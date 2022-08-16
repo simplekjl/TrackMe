@@ -1,0 +1,117 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+
+    compileSdkVersion Configs.compileSdkVersion
+    buildToolsVersion Configs.buildToolsVersion
+
+    defaultConfig {
+        applicationId "com.simplekjl.trackme"
+        minSdkVersion Configs.minSdkVersion
+        targetSdkVersion Configs.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildFeatures {
+        compose true
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+        release.java.srcDirs += 'src/release/kotlin'
+        debug.java.srcDirs += 'src/debug/kotlin'
+        androidTest.java.srcDirs += 'src/androidTest/kotlin'
+        test.java.srcDirs += 'src/test/kotlin'
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion KotlinLib.kotlinComposeCompilerExtVersion
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(path: ':domain')
+    implementation project(path: ':data')
+
+    implementation AndroidX.appCompat
+    implementation AndroidX.core
+    implementation AndroidX.annotationLib
+    implementation AndroidX.recyclerView
+    implementation AndroidX.cardView
+    implementation AndroidX.constraintLayout
+    implementation AndroidX.activityCompose
+
+    implementation Net.retrofit
+    implementation Net.okHttpLogging
+
+    implementation Google.material
+
+    implementation AndroidLifecycle.viewModel
+    implementation AndroidLifecycle.liveData
+
+    implementation Google.hiltAndroid
+
+    kapt Google.hiltCompiler
+    kapt AndroidX.hiltCompiler
+    kapt AndroidLifecycle.compiler
+
+    implementation ImageLib.glide
+    implementation DebugLib.stetho
+
+    implementation Compose.ui
+    implementation Compose.toolingPreview
+    implementation Compose.foundation
+    implementation Compose.material
+    implementation Compose.lifecycleViewModel
+    implementation Compose.runtimeLiveData
+
+    implementation Coroutines.core
+    implementation Coroutines.android
+
+    implementation Net.moshiConverter
+    implementation Net.moshiKotlin
+
+    debugImplementation Net.chuckerDebug
+    releaseImplementation Net.chuckerRelease
+
+    debugImplementation Compose.tooling
+
+    testImplementation TestLib.junit
+
+    androidTestImplementation TestLib.androidRunner
+    androidTestImplementation TestLib.androidRules
+    androidTestImplementation TestLib.espressoCore
+}
