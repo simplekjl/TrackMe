@@ -8,6 +8,7 @@ object TestLib {
     private const val robolectricVersion = "4.0.1"
     private const val mockkVersion = "1.12.0"
     private const val fixtureVersion = "1.1.0"
+    private const val truthVersion = "0.42"
 
     const val junit = "junit:junit:$junitVersion"
     const val androidRunner = "androidx.test:runner:$androidTestSupportVersion"
@@ -25,5 +26,6 @@ object TestLib {
     const val mockk = "io.mockk:mockk:${mockkVersion}"
     const val mockkAndroid = "io.mockk:mockk-android:${mockkVersion}"
     const val fixture = "com.appmattus.fixture:fixture:${fixtureVersion}"
+    const val truth = "com.google.truth:truth:${truthVersion}"
 
 }

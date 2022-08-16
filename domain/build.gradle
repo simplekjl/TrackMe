@@ -54,6 +54,8 @@ dependencies {
     testImplementation Coroutines.coroutinesTest
     testImplementation TestLib.mockk
     testImplementation TestLib.fixture
+    testImplementation TestLib.truth
+
 
 
     implementation Coroutines.core

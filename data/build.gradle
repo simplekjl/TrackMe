@@ -56,10 +56,14 @@ dependencies {
     implementation Koin.core
 
     testImplementation TestLib.junit
-    testImplementation TestLib.fixture
     testImplementation TestLib.mockk
     testImplementation TestLib.mockkAndroid
     testImplementation TestLib.androidRules
+    testImplementation TestLib.junit
+    testImplementation Coroutines.coroutinesTest
+    testImplementation TestLib.mockk
+    testImplementation TestLib.fixture
+    testImplementation TestLib.truth
 
     androidTestImplementation TestLib.androidRunner
     androidTestImplementation TestLib.androidRules
