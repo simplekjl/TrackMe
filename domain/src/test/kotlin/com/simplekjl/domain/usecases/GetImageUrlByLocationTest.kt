@@ -6,7 +6,9 @@ import com.simplekjl.util.runBlockingTest
 import io.mockk.MockKAnnotations
 import io.mockk.coVerify
 import io.mockk.impl.annotations.RelaxedMockK
+import io.mockk.unmockkAll
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -41,5 +43,10 @@ internal class GetImageUrlByLocationTest {
         coVerify {
             imageFetcherRepository.getMatchingRepositories(lat, long)
         }
+    }
+
+    @After
+    fun tearDown() {
+        unmockkAll()
     }
 }
