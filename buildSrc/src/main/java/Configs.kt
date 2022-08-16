@@ -5,4 +5,7 @@ object Configs {
     const val targetSdkVersion = 30
     const val buildToolsVersion = "30.0.3"
 
+    // services
+    const val url_flickr : String = "\"https://api.flickr.com/services/rest/\""
+
 }

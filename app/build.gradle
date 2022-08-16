@@ -2,7 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
-    id 'dagger.hilt.android.plugin'
+    id 'kotlin-android-extensions'
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
@@ -20,6 +20,7 @@ android {
         manifestPlaceholders = [
                 'MAPS_API_KEY': 'xxxxx'
         ]
+        buildConfigField "String", "BASE_FLICKR_URL_API", Configs.url_flickr
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -88,10 +89,12 @@ dependencies {
     implementation AndroidLifecycle.viewModel
     implementation AndroidLifecycle.liveData
 
-    implementation Google.hiltAndroid
+    implementation Koin.android
+    implementation Koin.core
+    implementation Koin.compose
+    implementation Koin.workManager
+    implementation Koin.test
 
-    kapt Google.hiltCompiler
-    kapt AndroidX.hiltCompiler
     kapt AndroidLifecycle.compiler
 
     implementation ImageLib.glide
@@ -107,7 +110,7 @@ dependencies {
     implementation Coroutines.core
     implementation Coroutines.android
 
-    implementation Net.moshiConverter
+    implementation Net.gsonConverter
     implementation Net.moshiKotlin
 
     debugImplementation Net.chuckerDebug

@@ -2,7 +2,6 @@ plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
-    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -15,6 +14,7 @@ android {
         targetSdkVersion Configs.compileSdkVersion
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
         consumerProguardFiles 'consumer-rules.pro'
     }
 
@@ -62,8 +62,7 @@ dependencies {
 
     implementation Coroutines.core
 
-    kapt Google.hiltCompiler
-    kapt AndroidX.hiltCompiler
+    implementation Koin.core
 
     testImplementation TestLib.junit
 
