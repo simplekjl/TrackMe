@@ -6,7 +6,7 @@ import com.simplekjl.domain.utils.Result
 
 interface ImageFetcherRepository {
     suspend fun getMatchingRepositories(
-        lat: Int,
-        lon: Int
+        lat: Double,
+        lon: Double
     ): Result<SearchPhotoPayload>
 }

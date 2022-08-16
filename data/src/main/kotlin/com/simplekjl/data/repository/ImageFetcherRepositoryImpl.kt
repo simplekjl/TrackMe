@@ -9,8 +9,8 @@ class ImageFetcherRepositoryImpl(
 ) : ImageFetcherRepository {
 
     override suspend fun getMatchingRepositories(
-        lat: Int,
-        lon: Int
+        lat: Double,
+        lon: Double
     ): Result<SearchPhotoPayload> {
         return try {
             val call = network.getGithubClient()

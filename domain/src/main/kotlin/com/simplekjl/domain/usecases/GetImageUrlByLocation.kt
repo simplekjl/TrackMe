@@ -7,6 +7,6 @@ import com.simplekjl.domain.utils.Result
 class GetImageUrlByLocation(
     private val repository: ImageFetcherRepository
 ) {
-    suspend fun getRepositories( lat: Int, lon: Int): Result<SearchPhotoPayload> =
+    suspend fun getRepositories( lat: Double, lon: Double): Result<SearchPhotoPayload> =
         repository.getMatchingRepositories(lat = lat, lon = lon)
 }

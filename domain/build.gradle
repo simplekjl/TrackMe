@@ -8,6 +8,7 @@ dependencies {
 
     implementation KotlinLib.stdlib
     implementation Net.gsonConverter
+    implementation Koin.core
     implementation JavaLib.javaxInject
     implementation JavaLib.javaxAnnotation
 

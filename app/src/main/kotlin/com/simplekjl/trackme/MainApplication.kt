@@ -4,6 +4,9 @@ import android.app.Application
 import com.facebook.stetho.Stetho
 import com.simplekjl.data.client.FlickrService
 import com.simplekjl.data.di.dataModule
+import com.simplekjl.data.repository.NetworkSource
+import com.simplekjl.domain.di.domainModule
+import com.simplekjl.trackme.framework.RepositoriesSource
 import java.util.concurrent.TimeUnit
 import okhttp3.HttpUrl
 import okhttp3.Interceptor
@@ -20,12 +23,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class MainApplication : Application() {
 
-    private val networkModule = createNetworkModule()
     private val mainModule = createMainModule() // UI level
 
 
     private fun createMainModule() = module {
-        single<Retrofit> {
+        single {
             val builder = OkHttpClient().newBuilder()
             builder.readTimeout(0, TimeUnit.SECONDS)
             builder.connectTimeout(5, TimeUnit.SECONDS)
@@ -56,11 +58,8 @@ class MainApplication : Application() {
                 .baseUrl(BuildConfig.BASE_FLICKR_URL_API)
                 .build()
         }
-        single<FlickrService> { get<Retrofit>().create(FlickrService::class.java) }
-    }
-
-    private fun createNetworkModule() = module {
-
+        single { get<Retrofit>().create(FlickrService::class.java) }
+        factory<NetworkSource> { RepositoriesSource() }
     }
 
     override fun onCreate() {
@@ -73,7 +72,7 @@ class MainApplication : Application() {
             modules(
                 listOf(
                     dataModule,
-                    networkModule,
+                    domainModule,
                     mainModule
                 )
             )
