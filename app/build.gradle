@@ -78,6 +78,7 @@ dependencies {
     implementation Net.okHttpLogging
 
     implementation Google.material
+    implementation Google.maps
 
     implementation AndroidLifecycle.viewModel
     implementation AndroidLifecycle.liveData
