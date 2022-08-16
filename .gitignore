@@ -93,3 +93,4 @@ gen-external-apklibs
 *.classpath
 *.project
 *.idea/jarRepositories.xml
+/.idea/misc.xml
