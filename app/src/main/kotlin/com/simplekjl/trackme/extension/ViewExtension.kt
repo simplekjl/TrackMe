@@ -1,4 +1,4 @@
-package com.example.app.extension
+package com.simplekjl.trackme.extension
 
 import android.view.LayoutInflater
 import android.view.View

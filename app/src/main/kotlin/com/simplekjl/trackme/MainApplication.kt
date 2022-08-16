@@ -1,4 +1,4 @@
-package com.example.app
+package com.simplekjl.trackme
 
 import android.app.Application
 import com.facebook.stetho.Stetho

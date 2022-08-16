@@ -1,4 +1,4 @@
-package com.example.app
+package com.simplekjl.trackme
 
 import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4

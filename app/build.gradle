@@ -11,7 +11,7 @@ android {
     buildToolsVersion Configs.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.aldyaz.movix"
+        applicationId "com.simplekjl.trackme"
         minSdkVersion Configs.minSdkVersion
         targetSdkVersion Configs.targetSdkVersion
         versionCode 1

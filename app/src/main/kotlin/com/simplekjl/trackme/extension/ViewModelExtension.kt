@@ -1,4 +1,4 @@
-package com.example.app.extension
+package com.simplekjl.trackme.extension
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
