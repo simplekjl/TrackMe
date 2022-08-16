@@ -13,8 +13,6 @@ android {
         minSdkVersion Configs.minSdkVersion
         targetSdkVersion Configs.compileSdkVersion
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
         consumerProguardFiles 'consumer-rules.pro'
     }
 
@@ -50,21 +48,18 @@ dependencies {
 
     api KotlinLib.stdlib
 
-    implementation AndroidX.appCompat
-
     implementation Net.retrofit
     implementation Net.okHttpLogging
-
-    implementation Google.hiltAndroid
-
-    implementation Net.moshiConverter
-    implementation Net.moshiKotlin
 
     implementation Coroutines.core
 
     implementation Koin.core
 
     testImplementation TestLib.junit
+    testImplementation TestLib.fixture
+    testImplementation TestLib.mockk
+    testImplementation TestLib.mockkAndroid
+    testImplementation TestLib.androidRules
 
     androidTestImplementation TestLib.androidRunner
     androidTestImplementation TestLib.androidRules
