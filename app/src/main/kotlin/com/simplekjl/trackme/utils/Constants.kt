@@ -1,4 +1,4 @@
-package com.simplekjl.utils
+package com.simplekjl.trackme.utils
 
 object Constants {
     const val PERMISSION_LOCATION_REQUEST_CODE = 1
