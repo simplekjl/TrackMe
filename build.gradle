@@ -11,6 +11,7 @@ buildscript {
         classpath GradleLib.classpath
         classpath KotlinLib.classpath
         classpath Google.hiltClasspath
+        classpath Google.navigation
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }

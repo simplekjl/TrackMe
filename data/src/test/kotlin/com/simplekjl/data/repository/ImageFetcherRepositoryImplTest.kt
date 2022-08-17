@@ -50,7 +50,7 @@ internal class ImageFetcherRepositoryImplTest {
             val lon = 34.0
             val photoData: SearchPhotoPayload = fixture()
             coEvery {
-                imageFetcherRepository.getMatchingRepositories(
+                imageFetcherRepository.getImagesForLocation(
                     lat,
                     lon
                 )
@@ -60,7 +60,7 @@ internal class ImageFetcherRepositoryImplTest {
                 networkMockk.getGithubClient().searchPhotoByLocation(lat, lon)
             } returns Response.success(photoData)
 
-            val result = imageFetcherRepository.getMatchingRepositories(lat, lon)
+            val result = imageFetcherRepository.getImagesForLocation(lat, lon)
             assertThat(result).isInstanceOf(Result.Success::class.java)
 
         }
