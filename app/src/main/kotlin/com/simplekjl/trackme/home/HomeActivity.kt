@@ -9,6 +9,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.simplekjl.domain.usecases.GetImageUrlByLocationUseCase
+import com.simplekjl.domain.usecases.LocationDetails
 import com.simplekjl.domain.utils.Result.Error
 import com.simplekjl.domain.utils.Result.Success
 import com.simplekjl.trackme.R
@@ -49,7 +50,7 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
         // Add a marker in Sydney and move the camera
         val sydney = LatLng(-34.0, 151.0)
         runBlocking {
-            val result = useCase.getRepositories(-34.0, 151.0)
+            val result = useCase(LocationDetails(-34.0, 151.0))
             when (result) {
                 is Error -> {
                     println("meh")

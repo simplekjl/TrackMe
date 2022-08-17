@@ -8,7 +8,7 @@ class ImageFetcherRepositoryImpl(
     private val network: NetworkSource
 ) : ImageFetcherRepository {
 
-    override suspend fun getMatchingRepositories(
+    override suspend fun getImagesForLocation(
         lat: Double,
         lon: Double
     ): Result<SearchPhotoPayload> {
