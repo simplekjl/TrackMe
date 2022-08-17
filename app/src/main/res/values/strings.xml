@@ -2,6 +2,6 @@
     <string name="app_name">Track me</string>
     <string name="start">start</string>
     <string name="stop">stop</string>
-    <string name="initial_distance">0.0KM</string>
+    <string name="initial_distance">%1$sKM</string>
     <string name="distance_title">Distance</string>
 </resources>
