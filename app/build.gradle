@@ -4,6 +4,8 @@ plugins {
     id 'kotlin-kapt'
     id 'kotlin-android-extensions'
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
+    id 'androidx.navigation.safeargs'
+
 }
 
 android {
@@ -79,6 +81,9 @@ dependencies {
     implementation AndroidX.cardView
     implementation AndroidX.constraintLayout
     implementation AndroidX.activityCompose
+    implementation AndroidX.navigation
+
+    implementation Utils.easyPermissions
 
     implementation Net.retrofit
     implementation Net.okHttpLogging
@@ -94,6 +99,7 @@ dependencies {
     implementation Koin.compose
     implementation Koin.workManager
     implementation Koin.test
+    implementation 'androidx.navigation:navigation-fragment:2.5.1'
 
     kapt AndroidLifecycle.compiler
 
@@ -117,6 +123,7 @@ dependencies {
     releaseImplementation Net.chuckerRelease
 
     debugImplementation Compose.tooling
+
 
     testImplementation TestLib.junit
 

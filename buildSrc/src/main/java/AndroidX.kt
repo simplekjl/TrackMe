@@ -10,6 +10,7 @@ object AndroidX {
     private const val constraintLayoutVersion = "2.1.2"
     private const val activityComposeVersion = "1.4.0"
     private const val hiltVersion = "1.0.0"
+    private const val navigationVersion = "2.5.1"
 
     const val archVersion = "2.1.0"
 
@@ -24,5 +25,9 @@ object AndroidX {
         "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
     const val activityCompose = "androidx.activity:activity-compose:$activityComposeVersion"
     const val hiltCompiler = "androidx.hilt:hilt-compiler:$hiltVersion"
+
+    // Navigation Component
+    const val fragmentKtx = "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
+    const val navigation = "androidx.navigation:navigation-ui-ktx:$navigationVersion"
 
 }
