@@ -22,13 +22,13 @@ internal class GetImageUrlByLocationTest {
     @RelaxedMockK
     private lateinit var imageFetcherRepository: ImageFetcherRepository
 
-    private lateinit var userCase: GetImageUrlByLocation
+    private lateinit var userCase: GetImageUrlByLocationUseCase
 
     @Before
     fun setup() {
         MockKAnnotations.init(this)
 
-        userCase = GetImageUrlByLocation(
+        userCase = GetImageUrlByLocationUseCase(
             repository = imageFetcherRepository
         )
     }

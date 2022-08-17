@@ -8,7 +8,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.simplekjl.domain.usecases.GetImageUrlByLocation
+import com.simplekjl.domain.usecases.GetImageUrlByLocationUseCase
 import com.simplekjl.domain.utils.Result.Error
 import com.simplekjl.domain.utils.Result.Success
 import com.simplekjl.trackme.R
@@ -20,7 +20,7 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityHomeBinding
-    private val useCase: GetImageUrlByLocation by inject()
+    private val useCase: GetImageUrlByLocationUseCase by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
