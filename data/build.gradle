@@ -2,7 +2,6 @@ plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
-    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -14,7 +13,6 @@ android {
         minSdkVersion Configs.minSdkVersion
         targetSdkVersion Configs.compileSdkVersion
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
     }
 
@@ -50,22 +48,22 @@ dependencies {
 
     api KotlinLib.stdlib
 
-    implementation AndroidX.appCompat
-
     implementation Net.retrofit
     implementation Net.okHttpLogging
 
-    implementation Google.hiltAndroid
-
-    implementation Net.moshiConverter
-    implementation Net.moshiKotlin
-
     implementation Coroutines.core
 
-    kapt Google.hiltCompiler
-    kapt AndroidX.hiltCompiler
+    implementation Koin.core
 
     testImplementation TestLib.junit
+    testImplementation TestLib.mockk
+    testImplementation TestLib.mockkAndroid
+    testImplementation TestLib.androidRules
+    testImplementation TestLib.junit
+    testImplementation Coroutines.coroutinesTest
+    testImplementation TestLib.mockk
+    testImplementation TestLib.fixture
+    testImplementation TestLib.truth
 
     androidTestImplementation TestLib.androidRunner
     androidTestImplementation TestLib.androidRules

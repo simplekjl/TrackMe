@@ -1,6 +1,45 @@
-apply plugin: 'java-library'
-apply plugin: 'java'
-apply plugin: 'kotlin'
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+}
+
+android {
+
+    compileSdkVersion Configs.compileSdkVersion
+    buildToolsVersion Configs.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion Configs.minSdkVersion
+        targetSdkVersion Configs.compileSdkVersion
+
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+        test.java.srcDirs += 'src/test/kotlin'
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
 
 dependencies {
 
@@ -8,8 +47,16 @@ dependencies {
 
     implementation KotlinLib.stdlib
     implementation Net.gsonConverter
+    implementation Koin.core
     implementation JavaLib.javaxInject
     implementation JavaLib.javaxAnnotation
+    testImplementation TestLib.junit
+    testImplementation Coroutines.coroutinesTest
+    testImplementation TestLib.mockk
+    testImplementation TestLib.fixture
+    testImplementation TestLib.truth
+
+
 
     implementation Coroutines.core
 }
