@@ -13,18 +13,17 @@
         <action
             android:id="@+id/action_permissionsGranted_move_to_results"
             app:destination="@id/resultsFragment"
-            app:popUpTo="@id/permissionFragment"
+            app:popUpTo="@id/resultsFragment"
             app:popUpToInclusive="true" />
     </fragment>
 
-    <dialog
+    <fragment
         android:id="@+id/resultsFragment"
-        android:name="com.simplekjl.trackme.ui.trackimages.ResultsFragment"
+        android:name="com.simplekjl.trackme.ui.trackimages.TrackingFragment"
         android:label="fragment_results"
         tools:layout="@layout/fragment_results">
 <!--        <argument-->
 <!--            android:name="result"-->
 <!--            app:argType="com.simplekjl.domain.model.Photo" />-->
-    </dialog>
-    <fragment android:id="@+id/placeholder" />
+    </fragment>
 </navigation>
