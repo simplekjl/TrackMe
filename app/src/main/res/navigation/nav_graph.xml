@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/permissionFragment">
+
+    <fragment
+        android:id="@+id/permissionFragment"
+        android:name="com.simplekjl.trackme.ui.permission.PermissionFragment"
+        android:label="fragment_permission"
+        tools:layout="@layout/fragment_permission">
+        <action
+            android:id="@+id/action_permissionsGranted_move_to_results"
+            app:destination="@id/resultsFragment"
+            app:popUpTo="@id/permissionFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/resultsFragment"
+        android:name="com.simplekjl.trackme.ui.trackimages.ResultsFragment"
+        android:label="fragment_results"
+        tools:layout="@layout/fragment_results">
+<!--        <argument-->
+<!--            android:name="result"-->
+<!--            app:argType="com.simplekjl.domain.model.Photo" />-->
+    </dialog>
+    <fragment android:id="@+id/placeholder" />
+</navigation>
