@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/resultsFragment"
-        android:name="com.simplekjl.trackme.ui.trackimages.ResultsFragment"
+        android:name="com.simplekjl.trackme.ui.trackimages.TrackingFragment"
         android:label="fragment_results"
         tools:layout="@layout/fragment_results">
 <!--        <argument-->
