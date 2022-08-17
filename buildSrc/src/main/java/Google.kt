@@ -4,6 +4,7 @@ object Google {
     private const val daggerVersion = "2.42"
     private const val hiltVersion = "2.38.1"
     private const val mapsVersion = "18.1.0"
+    private const val nav_version = "2.5.1"
 
     const val material = "com.google.android.material:material:$materialVersion"
     const val daggerCore = "com.google.dagger:dagger:$daggerVersion"
@@ -17,5 +18,8 @@ object Google {
 
     // MAPS
     const val maps = "com.google.android.gms:play-services-maps:$mapsVersion"
+    // navigation
+
+    const val navigation = "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
 
 }

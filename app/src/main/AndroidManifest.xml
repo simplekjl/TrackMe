@@ -19,7 +19,7 @@
             android:value="${MAPS_API_KEY}"/>
 
         <activity
-            android:name=".home.HomeActivity"
+            android:name="com.simplekjl.trackme.ui.home.HomeActivity"
             android:exported="true"
             android:label="@string/app_name">
             <intent-filter>
