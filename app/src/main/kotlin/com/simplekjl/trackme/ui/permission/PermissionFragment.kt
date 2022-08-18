@@ -23,7 +23,7 @@ class PermissionFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
+
         _binding = FragmentPermissionBinding.inflate(inflater, container, false)
 
         binding.btnContinue.setOnClickListener {

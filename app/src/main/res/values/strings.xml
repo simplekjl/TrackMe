@@ -2,6 +2,10 @@
     <string name="app_name">Track me</string>
     <string name="start">start</string>
     <string name="stop">stop</string>
-    <string name="initial_distance">0.0KM</string>
+    <string name="initial_distance">%1$sKM</string>
     <string name="distance_title">Distance</string>
+    <string name="continue_btn">Continue</string>
+    <string name="some_permissions_are_needed">Some permissions are needed</string>
+    <string name="usage_description">Please allow location always, to allow the app to keep track of your steps</string>
+    <string name="logo">logo</string>
 </resources>

@@ -25,6 +25,7 @@ import com.simplekjl.trackme.utils.Constants.NOTIFICATION_CHANNEL_ID
 import com.simplekjl.trackme.utils.Constants.NOTIFICATION_CHANNEL_NAME
 import com.simplekjl.trackme.utils.Constants.NOTIFICATION_ID
 import com.simplekjl.trackme.utils.GeneralFuncs.calculateDistance
+import com.simplekjl.trackme.utils.GeneralFuncs.formatDistance
 import org.koin.android.ext.android.inject
 
 class TrackingService : LifecycleService() {
@@ -73,8 +74,10 @@ class TrackingService : LifecycleService() {
     }
 
     private fun updateNotificationPeriodically() {
-        notification.setContentTitle("Distance Travelled")
-            .setContentText(locationList.value?.let { calculateDistance(it) } + "km")
+        locationList.value?.let {
+            notification.setContentTitle("Distance Travelled")
+                .setContentText(formatDistance(calculateDistance(it)))
+        }
         notificationManager.notify(NOTIFICATION_ID, notification.build())
     }
 

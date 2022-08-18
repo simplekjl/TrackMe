@@ -6,15 +6,13 @@ import java.text.DecimalFormat
 
 object GeneralFuncs {
 
-    fun calculateDistance(locationList: MutableList<LatLng>): String {
+    fun calculateDistance(locationList: MutableList<LatLng>): Double {
         if (locationList.size > 1) {
-            val distance =
-                SphericalUtil.computeDistanceBetween(locationList.first(), locationList.last())
-            val formatDistance = DecimalFormat("#.##").format(distance / 1000)
-            return formatDistance + "KM"
+            return SphericalUtil.computeDistanceBetween(locationList.first(), locationList.last())
         }
-
-        return "0.00KM"
-
+        return 0.00
     }
+
+    fun formatDistance(distance: Double): String = DecimalFormat("#.##").format(distance / 1000)
+
 }

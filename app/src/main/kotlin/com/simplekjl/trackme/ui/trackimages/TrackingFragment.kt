@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
@@ -17,6 +16,7 @@ import com.simplekjl.trackme.ui.permission.Permissions.requestBackgroundLocation
 import com.simplekjl.trackme.utils.Constants.ACTION_START_FOREGROUND_SERVICE
 import com.simplekjl.trackme.utils.Constants.ACTION_STOP_FOREGROUND_SERVICE
 import com.simplekjl.trackme.utils.GeneralFuncs.calculateDistance
+import com.simplekjl.trackme.utils.GeneralFuncs.formatDistance
 import com.vmadalin.easypermissions.EasyPermissions
 import com.vmadalin.easypermissions.dialogs.SettingsDialog
 import kotlinx.android.synthetic.main.fragment_results.view.startBtn
@@ -30,9 +30,9 @@ class TrackingFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     private val trackingViewModel by viewModel<TrackingViewModel>()
 
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-    val started = MutableLiveData(false)
     private var locationList = mutableListOf<LatLng>()
-    private var stopTime: Long = 0L
+
+    private val imagesAdapter: ImageAdapter by lazy { ImageAdapter(mutableListOf()) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,6 +46,8 @@ class TrackingFragment : Fragment(), EasyPermissions.PermissionCallbacks {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.distanceValue.text = getString(R.string.initial_distance, "0.0")
+        setPhotosList()
         setObservers()
         setListeners()
     }
@@ -60,10 +62,27 @@ class TrackingFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         TrackingService.locationList.observe(viewLifecycleOwner) {
             if (it != null) {
                 locationList = it
-                binding.distanceValue.text = calculateDistance(locationList)
+                val distance = calculateDistance(locationList)
+                if (locationList.size > 1) {
+                    trackingViewModel.downLoadImage(locationList.last(), distance / 100)
+                }
+                binding.distanceValue.text =
+                    getString(R.string.initial_distance, formatDistance(distance))
 
             }
         }
+
+        trackingViewModel.imageList.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()) {
+                imagesAdapter.photos.add(it.last())
+                imagesAdapter.notifyItemChanged(it.lastIndex)
+                binding.imagesRv.smoothScrollToPosition(it.lastIndex)
+            }
+        }
+    }
+
+    private fun setPhotosList() {
+        binding.imagesRv.adapter = imagesAdapter
     }
 
     private fun updateMenuAndStartTracking() {

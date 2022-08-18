@@ -81,7 +81,7 @@ dependencies {
     implementation AndroidX.cardView
     implementation AndroidX.constraintLayout
     implementation AndroidX.activityCompose
-    implementation AndroidX.navigation
+    implementation AndroidX.navigationFragment
 
     implementation Utils.easyPermissions
 
@@ -99,14 +99,12 @@ dependencies {
     implementation Koin.compose
     implementation Koin.workManager
     implementation Koin.test
-    implementation 'androidx.navigation:navigation-fragment:2.5.1'
     implementation 'com.google.android.gms:play-services-location:20.0.0'
     implementation 'com.google.maps.android:android-maps-utils:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-service:2.5.1'
+    implementation 'io.coil-kt:coil:1.4.0'
 
     kapt AndroidLifecycle.compiler
-
-    implementation ImageLib.glide
     implementation DebugLib.stetho
 
     implementation Compose.ui
