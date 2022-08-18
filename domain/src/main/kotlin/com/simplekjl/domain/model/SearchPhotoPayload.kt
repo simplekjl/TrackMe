@@ -33,14 +33,14 @@ data class SearchPhotoPayload(
     @SerializedName("stat")
     var status: String,
     @SerializedName("photos")
-    var photoResponse: PhotoResponse
+    var photoResponse: PhotoResponseRaw
 )
 
-data class PhotoResponse(
+data class PhotoResponseRaw(
     @SerializedName("photo")
-    var photo: ArrayList<Photo> = arrayListOf()
+    var photo: ArrayList<PhotoRaw> = arrayListOf()
 )
 
-data class Photo(
+data class PhotoRaw(
     @SerializedName("url_m") var urlImage: String
 )
