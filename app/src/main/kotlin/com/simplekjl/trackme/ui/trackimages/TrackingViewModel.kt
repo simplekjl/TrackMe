@@ -4,11 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.maps.model.LatLng
+import com.simplekjl.domain.model.Photo
 import com.simplekjl.domain.usecases.GetImageUrlByLocationUseCase
 import com.simplekjl.domain.usecases.LocationDetails
 import com.simplekjl.domain.utils.Result.Error
 import com.simplekjl.domain.utils.Result.Success
 import kotlinx.coroutines.runBlocking
+import kotlin.random.Random
 
 class TrackingViewModel(private val getImageUrlByLocationUseCase: GetImageUrlByLocationUseCase) :
     ViewModel() {
@@ -23,16 +25,31 @@ class TrackingViewModel(private val getImageUrlByLocationUseCase: GetImageUrlByL
                     getImageUrlByLocationUseCase(LocationDetails(last.latitude, last.longitude))
                 when (result) {
                     is Error -> {
-                        // do not add nothing
+                        addErrorImageToList()
                     }
                     is Success -> {
-                        _imageList.value?.apply {
-                            add(result.data.photoResponse.photo.first().urlImage)
-                            _imageList.postValue(this)
-                        }
+                        addImageToList(result.data.photoResponse.photo)
                     }
                 }
             }
+        }
+    }
+
+    private fun addImageToList(data: ArrayList<Photo>) {
+        _imageList.value?.apply {
+            if (data.isNotEmpty()) {
+                add(data[Random.nextInt(data.size)].urlImage)
+            } else {
+                addErrorImageToList()
+            }
+            _imageList.postValue(this)
+        }
+    }
+
+    private fun addErrorImageToList() {
+        _imageList.value?.apply {
+            add("https://i.pinimg.com/564x/83/95/ec/8395ec481687ee79f74a345c2ba184ac.jpg")
+            _imageList.postValue(this)
         }
     }
 }
