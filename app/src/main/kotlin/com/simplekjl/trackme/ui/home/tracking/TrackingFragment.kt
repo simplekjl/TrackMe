@@ -1,4 +1,4 @@
-package com.simplekjl.trackme.ui.trackimages
+package com.simplekjl.trackme.ui.home.tracking
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,8 +11,11 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
 import com.simplekjl.trackme.R
 import com.simplekjl.trackme.databinding.FragmentResultsBinding
-import com.simplekjl.trackme.ui.permission.Permissions.hasBackgroundLocationPermission
-import com.simplekjl.trackme.ui.permission.Permissions.requestBackgroundLocationPermission
+import com.simplekjl.trackme.utils.Permissions.hasBackgroundLocationPermission
+import com.simplekjl.trackme.utils.Permissions.hasLocationPermission
+import com.simplekjl.trackme.utils.Permissions.requestBackgroundLocationPermission
+import com.simplekjl.trackme.utils.Permissions.requestLocationPermission
+import com.simplekjl.trackme.utils.Constants
 import com.simplekjl.trackme.utils.Constants.ACTION_START_FOREGROUND_SERVICE
 import com.simplekjl.trackme.utils.Constants.ACTION_STOP_FOREGROUND_SERVICE
 import com.simplekjl.trackme.utils.GeneralFuncs.calculateDistance
@@ -32,7 +35,7 @@ class TrackingFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private var locationList = mutableListOf<LatLng>()
 
-    private val imagesAdapter: ImageAdapter by lazy { ImageAdapter(mutableListOf()) }
+    private val imagesAdapter: ImageAdapter by lazy { ImageAdapter(ArrayDeque()) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,7 +49,7 @@ class TrackingFragment : Fragment(), EasyPermissions.PermissionCallbacks {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.distanceValue.text = getString(R.string.initial_distance, "0.0")
+        binding.distanceValue.text = getString(R.string.initial_distance, "0.00")
         setPhotosList()
         setObservers()
         setListeners()
@@ -74,9 +77,8 @@ class TrackingFragment : Fragment(), EasyPermissions.PermissionCallbacks {
 
         trackingViewModel.imageList.observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) {
-                imagesAdapter.photos.add(it.last())
-                imagesAdapter.notifyItemChanged(it.lastIndex)
-                binding.imagesRv.smoothScrollToPosition(it.lastIndex)
+                imagesAdapter.photos.addFirst(it.last())
+                imagesAdapter.notifyItemChanged(0)
             }
         }
     }
@@ -96,10 +98,14 @@ class TrackingFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     }
 
     private fun onStartButtonClicked() {
-        if (hasBackgroundLocationPermission(requireContext())) {
-            sendActionCommandToService(ACTION_START_FOREGROUND_SERVICE)
+        if (hasLocationPermission(requireContext())) {
+            if (hasBackgroundLocationPermission(requireContext())) {
+                sendActionCommandToService(ACTION_START_FOREGROUND_SERVICE)
+            } else {
+                requestBackgroundLocationPermission(this)
+            }
         } else {
-            requestBackgroundLocationPermission(this)
+            requestLocationPermission(this)
         }
     }
 
@@ -128,10 +134,14 @@ class TrackingFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     }
 
     override fun onPermissionsDenied(requestCode: Int, perms: List<String>) {
-        if (EasyPermissions.somePermissionPermanentlyDenied(this, listOf(perms[0]))) {
-            SettingsDialog.Builder(requireActivity()).build().show()
-        } else {
-            requestBackgroundLocationPermission(this)
+        when (requestCode) {
+            Constants.PERMISSION_LOCATION_REQUEST_CODE ,
+            Constants.BACKGROUND_PERMISSION_LOCATION_REQUEST_CODE-> {
+                SettingsDialog.Builder(requireActivity()).build().show()
+            }
+            else -> {
+                //do nothing
+            }
         }
     }
 

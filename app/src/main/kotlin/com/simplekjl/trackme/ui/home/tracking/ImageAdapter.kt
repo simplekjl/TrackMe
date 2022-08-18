@@ -1,12 +1,13 @@
-package com.simplekjl.trackme.ui.trackimages
+package com.simplekjl.trackme.ui.home.tracking
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.simplekjl.trackme.databinding.ImageCardBinding
+import kotlin.collections.ArrayDeque
 
-class ImageAdapter(val photos: MutableList<String>) : RecyclerView.Adapter<ImageViewHolder>() {
+class ImageAdapter(val photos: ArrayDeque<String>) : RecyclerView.Adapter<ImageViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder =
         ImageViewHolder(
             ImageCardBinding.inflate(
@@ -17,7 +18,7 @@ class ImageAdapter(val photos: MutableList<String>) : RecyclerView.Adapter<Image
         )
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
-        holder.bind(photos[position])
+        holder.bind(photos.elementAt(position))
     }
 
     override fun getItemCount(): Int = photos.size

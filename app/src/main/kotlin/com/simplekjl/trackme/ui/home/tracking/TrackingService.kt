@@ -1,4 +1,4 @@
-package com.simplekjl.trackme.ui.trackimages
+package com.simplekjl.trackme.ui.home.tracking
 
 import android.annotation.SuppressLint
 import android.app.NotificationChannel

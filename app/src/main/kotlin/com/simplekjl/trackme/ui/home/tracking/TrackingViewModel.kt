@@ -1,4 +1,4 @@
-package com.simplekjl.trackme.ui.trackimages
+package com.simplekjl.trackme.ui.home.tracking
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
