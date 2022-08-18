@@ -27,7 +27,7 @@ object AndroidX {
     const val hiltCompiler = "androidx.hilt:hilt-compiler:$hiltVersion"
 
     // Navigation Component
-    const val fragmentKtx = "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
+    const val navigationFragment = "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
     const val navigation = "androidx.navigation:navigation-ui-ktx:$navigationVersion"
 
 }

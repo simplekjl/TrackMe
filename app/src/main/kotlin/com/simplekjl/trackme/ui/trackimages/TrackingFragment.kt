@@ -32,6 +32,8 @@ class TrackingFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private var locationList = mutableListOf<LatLng>()
 
+    private val imagesAdapter: ImageAdapter by lazy { ImageAdapter(mutableListOf()) }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,6 +47,7 @@ class TrackingFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.distanceValue.text = getString(R.string.initial_distance, "0.0")
+        setPhotosList()
         setObservers()
         setListeners()
     }
@@ -70,8 +73,15 @@ class TrackingFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         }
 
         trackingViewModel.imageList.observe(viewLifecycleOwner) {
-
+            if (it.isNotEmpty()) {
+                imagesAdapter.photos.add(it.last())
+                imagesAdapter.notifyItemChanged(0)
+            }
         }
+    }
+
+    private fun setPhotosList() {
+        binding.imagesRv.adapter = imagesAdapter
     }
 
     private fun updateMenuAndStartTracking() {

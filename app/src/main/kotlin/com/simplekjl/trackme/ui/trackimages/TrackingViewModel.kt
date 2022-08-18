@@ -16,8 +16,6 @@ class TrackingViewModel(private val getImageUrlByLocationUseCase: GetImageUrlByL
     private val _imageList = MutableLiveData(mutableListOf<String>())
     val imageList: LiveData<MutableList<String>> = _imageList
 
-    fun getImageList() = imageList.value?.reversed() // this can be improved using a Deque
-
     fun downLoadImage(last: LatLng, distance: Double) {
         if (kotlin.math.floor(distance) > (_imageList.value?.size ?: 0)) {
             runBlocking {
