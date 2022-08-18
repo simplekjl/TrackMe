@@ -75,7 +75,8 @@ class TrackingFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         trackingViewModel.imageList.observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) {
                 imagesAdapter.photos.add(it.last())
-                imagesAdapter.notifyItemChanged(0)
+                imagesAdapter.notifyItemChanged(it.lastIndex)
+                binding.imagesRv.smoothScrollToPosition(it.lastIndex)
             }
         }
     }
