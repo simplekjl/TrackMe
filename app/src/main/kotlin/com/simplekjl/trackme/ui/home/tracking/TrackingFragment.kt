@@ -89,7 +89,6 @@ class TrackingFragment : Fragment(), EasyPermissions.PermissionCallbacks {
 
     private fun updateMenuAndStartTracking() {
         if (binding.toolbar.startBtn.text == getString(R.string.start)) {
-            binding.toolbar.startBtn.text = getString(R.string.stop)
             onStartButtonClicked()
         } else {
             binding.toolbar.startBtn.text = getString(R.string.start)
@@ -101,6 +100,7 @@ class TrackingFragment : Fragment(), EasyPermissions.PermissionCallbacks {
         if (hasLocationPermission(requireContext())) {
             if (hasBackgroundLocationPermission(requireContext())) {
                 sendActionCommandToService(ACTION_START_FOREGROUND_SERVICE)
+                binding.toolbar.startBtn.text = getString(R.string.stop)
             } else {
                 requestBackgroundLocationPermission(this)
             }
