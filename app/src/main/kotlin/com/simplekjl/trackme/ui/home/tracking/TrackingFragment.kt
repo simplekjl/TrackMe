@@ -36,7 +36,7 @@ class TrackingFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private var locationList = mutableListOf<LatLng>()
 
-    private val imagesAdapter: ImageAdapter by lazy { ImageAdapter(mutableListOf<String>()) }
+    private val imagesAdapter: ImageAdapter by lazy { ImageAdapter(mutableListOf()) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,7 +67,7 @@ class TrackingFragment : Fragment(), EasyPermissions.PermissionCallbacks {
             if (it != null) {
                 locationList = it
                 val distance = calculateDistance(locationList)
-                if (locationList.size > 1) {
+                if (locationList.isNotEmpty()) {
                     trackingViewModel.downLoadImage(locationList.last(), distance / 100)
                 }
                 binding.distanceValue.text =
@@ -149,7 +149,7 @@ class TrackingFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun clearImages(){
+    private fun clearImages() {
         imagesAdapter.photos.clear()
         imagesAdapter.notifyDataSetChanged()
         trackingViewModel.clearImages()
