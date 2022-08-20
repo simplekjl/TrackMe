@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.maps.model.LatLng
-import com.simplekjl.domain.model.Photo
+import com.simplekjl.domain.model.PhotoRaw
 import com.simplekjl.domain.usecases.GetImageUrlByLocationUseCase
 import com.simplekjl.domain.usecases.LocationDetails
 import com.simplekjl.domain.utils.Result.Error
@@ -35,7 +35,7 @@ class TrackingViewModel(private val getImageUrlByLocationUseCase: GetImageUrlByL
         }
     }
 
-    private fun addImageToList(data: ArrayList<Photo>) {
+    private fun addImageToList(data: ArrayList<PhotoRaw>) {
         _imageList.value?.apply {
             if (data.isNotEmpty()) {
                 add(data[Random.nextInt(data.size)].urlImage)
