@@ -67,9 +67,7 @@ class TrackingFragment : Fragment(), EasyPermissions.PermissionCallbacks {
             if (it != null) {
                 locationList = it
                 val distance = calculateDistance(locationList)
-                if (locationList.isNotEmpty()) {
-                    trackingViewModel.downLoadImage(locationList.last(), distance / 100)
-                }
+                trackingViewModel.shouldDownLoadImage(locationList, distance / 100)
                 binding.distanceValue.text =
                     getString(R.string.initial_distance, formatDistance(distance))
 

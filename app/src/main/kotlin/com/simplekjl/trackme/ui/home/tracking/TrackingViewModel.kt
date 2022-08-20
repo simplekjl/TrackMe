@@ -18,11 +18,17 @@ class TrackingViewModel(private val getImageUrlByLocationUseCase: GetImageUrlByL
     private val _imageList = MutableLiveData(mutableListOf<String>())
     val imageList: LiveData<MutableList<String>> = _imageList
 
-    fun downLoadImage(last: LatLng, distance: Double) {
+    fun shouldDownLoadImage(locationsList: MutableList<LatLng>, distance: Double) {
+        if (locationsList.isEmpty()) return // return if it is empty
         if (kotlin.math.floor(distance) > (_imageList.value?.size ?: 0)) {
             runBlocking {
                 val result =
-                    getImageUrlByLocationUseCase(LocationDetails(last.latitude, last.longitude))
+                    getImageUrlByLocationUseCase(
+                        LocationDetails(
+                            locationsList.last().latitude,
+                            locationsList.last().longitude
+                        )
+                    )
                 when (result) {
                     is Error -> {
                         addErrorImageToList()

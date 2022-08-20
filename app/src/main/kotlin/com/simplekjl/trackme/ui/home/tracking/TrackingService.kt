@@ -40,27 +40,24 @@ class TrackingService : LifecycleService() {
 
     private val fusedLocationProviderClient: FusedLocationProviderClient by inject()
 
-    companion object {
-        val started = MutableLiveData<Boolean>()
-        val locationList = MutableLiveData<MutableList<LatLng>>()
-    }
-
-
-    private fun initValues() {
-        started.postValue(false)
-        locationList.postValue(mutableListOf())
-    }
-
     private val locationCallback = object : LocationCallback() {
         override fun onLocationResult(result: LocationResult) {
             super.onLocationResult(result)
             val locations = result.locations
             for (location in locations) {
                 updateLocationList(location)
-                updateNotificationPeriodically()
-
+                updateNotificationDetails()
             }
         }
+    }
+
+    companion object {
+        val locationList = MutableLiveData<MutableList<LatLng>>()
+    }
+
+
+    private fun initValues() {
+        locationList.postValue(mutableListOf())
     }
 
 
@@ -70,10 +67,9 @@ class TrackingService : LifecycleService() {
             add(latLng)
             locationList.postValue(this)
         }
-
     }
 
-    private fun updateNotificationPeriodically() {
+    private fun updateNotificationDetails() {
         locationList.value?.let {
             notification.setContentTitle("Distance Travelled")
                 .setContentText(
@@ -96,18 +92,14 @@ class TrackingService : LifecycleService() {
         intent?.let {
             when (it.action) {
                 ACTION_START_FOREGROUND_SERVICE -> {
-                    started.postValue(true)
                     startForegroundService()
                     startLocationUpdates()
                 }
                 ACTION_STOP_FOREGROUND_SERVICE -> {
-                    started.postValue(false)
                     stopForegroundService()
-
                 }
                 else -> {}
             }
-
         }
         return super.onStartCommand(intent, flags, startId)
     }
@@ -116,7 +108,6 @@ class TrackingService : LifecycleService() {
     private fun startForegroundService() {
         createNotificationChannel()
         startForeground(NOTIFICATION_ID, notification.build())
-
     }
 
     @SuppressLint("MissingPermission")
@@ -130,21 +121,16 @@ class TrackingService : LifecycleService() {
             locationRequest,
             locationCallback,
             Looper.getMainLooper()
-
         )
     }
 
     private fun stopForegroundService() {
-        removeLocationUpdates()
+        fusedLocationProviderClient.removeLocationUpdates(locationCallback)
         (getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).cancel(
             NOTIFICATION_ID
         )
         stopForeground(true)
         stopSelf()
-    }
-
-    private fun removeLocationUpdates() {
-        fusedLocationProviderClient.removeLocationUpdates(locationCallback)
     }
 
     private fun createNotificationChannel() {
