@@ -1,5 +1,6 @@
 package com.simplekjl.trackme.ui.home.tracking
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,15 +12,15 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
 import com.simplekjl.trackme.R
 import com.simplekjl.trackme.databinding.FragmentResultsBinding
-import com.simplekjl.trackme.utils.Permissions.hasBackgroundLocationPermission
-import com.simplekjl.trackme.utils.Permissions.hasLocationPermission
-import com.simplekjl.trackme.utils.Permissions.requestBackgroundLocationPermission
-import com.simplekjl.trackme.utils.Permissions.requestLocationPermission
 import com.simplekjl.trackme.utils.Constants
 import com.simplekjl.trackme.utils.Constants.ACTION_START_FOREGROUND_SERVICE
 import com.simplekjl.trackme.utils.Constants.ACTION_STOP_FOREGROUND_SERVICE
 import com.simplekjl.trackme.utils.GeneralFuncs.calculateDistance
 import com.simplekjl.trackme.utils.GeneralFuncs.formatDistance
+import com.simplekjl.trackme.utils.Permissions.hasBackgroundLocationPermission
+import com.simplekjl.trackme.utils.Permissions.hasLocationPermission
+import com.simplekjl.trackme.utils.Permissions.requestBackgroundLocationPermission
+import com.simplekjl.trackme.utils.Permissions.requestLocationPermission
 import com.vmadalin.easypermissions.EasyPermissions
 import com.vmadalin.easypermissions.dialogs.SettingsDialog
 import kotlinx.android.synthetic.main.fragment_results.view.startBtn
@@ -35,7 +36,7 @@ class TrackingFragment : Fragment(), EasyPermissions.PermissionCallbacks {
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private var locationList = mutableListOf<LatLng>()
 
-    private val imagesAdapter: ImageAdapter by lazy { ImageAdapter(ArrayDeque()) }
+    private val imagesAdapter: ImageAdapter by lazy { ImageAdapter(mutableListOf<String>()) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -77,8 +78,9 @@ class TrackingFragment : Fragment(), EasyPermissions.PermissionCallbacks {
 
         trackingViewModel.imageList.observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) {
-                imagesAdapter.photos.addFirst(it.last())
+                imagesAdapter.photos.add(it.last())
                 imagesAdapter.notifyItemChanged(0)
+                binding.imagesRv.smoothScrollToPosition(it.lastIndex)
             }
         }
     }
@@ -101,6 +103,7 @@ class TrackingFragment : Fragment(), EasyPermissions.PermissionCallbacks {
             if (hasBackgroundLocationPermission(requireContext())) {
                 sendActionCommandToService(ACTION_START_FOREGROUND_SERVICE)
                 binding.toolbar.startBtn.text = getString(R.string.stop)
+                clearImages()
             } else {
                 requestBackgroundLocationPermission(this)
             }
@@ -135,14 +138,21 @@ class TrackingFragment : Fragment(), EasyPermissions.PermissionCallbacks {
 
     override fun onPermissionsDenied(requestCode: Int, perms: List<String>) {
         when (requestCode) {
-            Constants.PERMISSION_LOCATION_REQUEST_CODE ,
-            Constants.BACKGROUND_PERMISSION_LOCATION_REQUEST_CODE-> {
+            Constants.PERMISSION_LOCATION_REQUEST_CODE,
+            Constants.BACKGROUND_PERMISSION_LOCATION_REQUEST_CODE -> {
                 SettingsDialog.Builder(requireActivity()).build().show()
             }
             else -> {
                 //do nothing
             }
         }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun clearImages(){
+        imagesAdapter.photos.clear()
+        imagesAdapter.notifyDataSetChanged()
+        trackingViewModel.clearImages()
     }
 
     override fun onPermissionsGranted(requestCode: Int, perms: List<String>) {

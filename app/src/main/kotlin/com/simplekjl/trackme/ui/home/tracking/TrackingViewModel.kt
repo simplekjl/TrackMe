@@ -52,4 +52,8 @@ class TrackingViewModel(private val getImageUrlByLocationUseCase: GetImageUrlByL
             _imageList.postValue(this)
         }
     }
+
+    fun clearImages() {
+        _imageList.value = mutableListOf()
+    }
 }
