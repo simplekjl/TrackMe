@@ -1,4 +1,4 @@
-package com.simplekjl.trackme.ui.trackimages
+package com.simplekjl.trackme.ui.home.tracking
 
 import android.annotation.SuppressLint
 import android.app.NotificationChannel
@@ -76,7 +76,12 @@ class TrackingService : LifecycleService() {
     private fun updateNotificationPeriodically() {
         locationList.value?.let {
             notification.setContentTitle("Distance Travelled")
-                .setContentText(formatDistance(calculateDistance(it)))
+                .setContentText(
+                    getString(
+                        R.string.initial_distance,
+                        formatDistance(calculateDistance(it))
+                    )
+                )
         }
         notificationManager.notify(NOTIFICATION_ID, notification.build())
     }

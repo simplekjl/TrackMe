@@ -1,4 +1,4 @@
-package com.simplekjl.trackme.ui.permission
+package com.simplekjl.trackme.utils
 
 import android.Manifest
 import android.content.Context
@@ -38,7 +38,7 @@ object Permissions {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             EasyPermissions.requestPermissions(
                 fragment,
-                "This Permission is necessary for this app without this permission you are not able to enjoy our services",
+                "Allow to track your location even if you are not in the app",
                 BACKGROUND_PERMISSION_LOCATION_REQUEST_CODE,
                 Manifest.permission.ACCESS_BACKGROUND_LOCATION
             )

@@ -10,7 +10,7 @@ import com.simplekjl.data.repository.NetworkSource
 import com.simplekjl.trackme.BuildConfig
 import com.simplekjl.trackme.R
 import com.simplekjl.trackme.framework.RepositoriesSource
-import com.simplekjl.trackme.ui.trackimages.TrackingViewModel
+import com.simplekjl.trackme.ui.home.tracking.TrackingViewModel
 import com.simplekjl.trackme.utils.Constants.NOTIFICATION_CHANNEL_ID
 import java.util.concurrent.TimeUnit
 import okhttp3.HttpUrl

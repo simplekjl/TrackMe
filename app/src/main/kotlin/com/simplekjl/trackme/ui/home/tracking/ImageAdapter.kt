@@ -1,9 +1,11 @@
-package com.simplekjl.trackme.ui.trackimages
+package com.simplekjl.trackme.ui.home.tracking
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.simplekjl.trackme.R
 import com.simplekjl.trackme.databinding.ImageCardBinding
 
 class ImageAdapter(val photos: MutableList<String>) : RecyclerView.Adapter<ImageViewHolder>() {
@@ -24,8 +26,15 @@ class ImageAdapter(val photos: MutableList<String>) : RecyclerView.Adapter<Image
 
 }
 
-class ImageViewHolder(val binding: ImageCardBinding) : RecyclerView.ViewHolder(binding.root) {
+class ImageViewHolder(private val binding: ImageCardBinding) :
+    RecyclerView.ViewHolder(binding.root) {
     fun bind(url: String) {
-        binding.image.load(url)
+        val requestOption = RequestOptions()
+            .placeholder(R.drawable.placeholder)
+            .centerCrop()
+        Glide.with(binding.root.context)
+            .load(url)
+            .apply(requestOption)
+            .into(binding.image)
     }
 }

@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
-        <service android:name=".ui.trackimages.TrackingService"
+        <service android:name="com.simplekjl.trackme.ui.home.tracking.TrackingService"
             android:foregroundServiceType="location"
             android:exported="false"/>
         <meta-data
